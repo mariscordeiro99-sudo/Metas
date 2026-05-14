@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+
+<html class="light" lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SalesTarget Pro - Calculadora de Metas</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-surface": "#181c1e",
+                        "on-primary-container": "#86a0cd",
+                        "surface-variant": "#e0e3e5",
+                        "tertiary-fixed-dim": "#9fcaff",
+                        "outline-variant": "#c4c6cf",
+                        "secondary-fixed": "#d9e3f9",
+                        "on-primary-fixed": "#001b3c",
+                        "on-primary-fixed-variant": "#2d476f",
+                        "surface-container-low": "#f1f4f6",
+                        "primary-container": "#1a365d",
+                        "surface-container": "#ebeef0",
+                        "secondary-container": "#d6e0f6",
+                        "secondary": "#555f71",
+                        "on-primary": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "tertiary-fixed": "#d2e4ff",
+                        "on-error": "#ffffff",
+                        "tertiary-container": "#003762",
+                        "primary-fixed-dim": "#adc7f7",
+                        "primary": "#002045",
+                        "tertiary": "#00213e",
+                        "on-surface-variant": "#43474e",
+                        "surface-tint": "#455f88",
+                        "inverse-primary": "#adc7f7",
+                        "on-secondary-container": "#596376",
+                        "on-error-container": "#93000a",
+                        "on-secondary": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary-fixed-variant": "#3d4759",
+                        "surface": "#f7fafc",
+                        "background": "#f7fafc",
+                        "on-tertiary-fixed": "#001d37",
+                        "error": "#ba1a1a",
+                        "on-tertiary-container": "#58a2f0",
+                        "secondary-fixed-dim": "#bdc7dc",
+                        "surface-bright": "#f7fafc",
+                        "primary-fixed": "#d6e3ff",
+                        "on-tertiary-fixed-variant": "#00497e",
+                        "surface-dim": "#d7dadc",
+                        "surface-container-high": "#e5e9eb",
+                        "inverse-surface": "#2d3133",
+                        "on-secondary-fixed": "#121c2c",
+                        "on-background": "#181c1e",
+                        "surface-container-highest": "#e0e3e5",
+                        "inverse-on-surface": "#eef1f3",
+                        "error-container": "#ffdad6",
+                        "outline": "#74777f"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "container-max": "1200px",
+                        "margin-edge": "32px",
+                        "stack-gap": "16px",
+                        "gutter": "24px",
+                        "unit": "8px",
+                        "section-gap": "48px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "body-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "label-bold": ["Inter"],
+                        "headline-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["24px", {"lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "label-sm": ["12px", {"lineHeight": "1.2", "fontWeight": "500"}],
+                        "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "label-bold": ["14px", {"lineHeight": "1.2", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "headline-lg": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Inter', sans-serif; }
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+          -webkit-appearance: none;
+          margin: 0;
+        }
+        input[type=number] {
+          -moz-appearance: textfield;
+        }
+        .toggle-checked:checked + .toggle-label {
+            background-color: #1a365d;
+        }
+        .toggle-checked:checked + .toggle-label .toggle-dot {
+            transform: translateX(100%);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface">
+<header class="bg-surface border-b border-outline-variant sticky top-0 z-50">
+<div class="flex justify-between items-center w-full px-margin-edge py-4 max-w-container-max mx-auto">
+<div class="flex items-center gap-8">
+<span class="font-headline-md text-headline-md font-bold text-primary">SalesTarget Pro</span>
+<nav class="hidden md:flex gap-6">
+<a class="text-secondary hover:text-primary pb-2 transition-colors duration-200" href="#">Dashboard</a>
+<a class="text-primary border-b-2 border-primary pb-2 transition-colors duration-200" href="#">Simulador</a>
+<a class="text-secondary hover:text-primary pb-2 transition-colors duration-200" href="#">Relatórios</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-secondary hover:text-primary transition-colors">notifications</button>
+<button class="material-symbols-outlined text-secondary hover:text-primary transition-colors">settings</button>
+<div class="w-8 h-8 rounded-full bg-outline-variant flex items-center justify-center overflow-hidden">
+<img alt="Avatar do Usuário" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCTUvrXFMbG9EytIRicbHNwuCRR5A6NCxwmC7a4mbGohlSEkMZQmv7ZW1Ywm7f73C0Z3zE__OwtM3DijQJOGKA2f_KMiQrsgsW8fjobp5yw2Iejp2Xi778n526z1PabZt4JBFnQ1AiIdSdhwBnHUlAAp1HUDU7HRwFMEuRG6INYXHHkZGY-dnjCxCFKdiTsFGUnlsANGPOEW7nPjAmxO516TIg3vCNZXPLQzMF8Ly4eCTekjR7NJIhDzeJCL_LceIo7A08ylU-SpzU"/>
+</div>
+</div>
+</div>
+</header>
+<div class="flex max-w-container-max mx-auto">
+<aside class="hidden lg:flex flex-col h-[calc(100vh-72px)] p-4 gap-stack-gap bg-surface-container-lowest border-r border-outline-variant w-64">
+<div class="py-4">
+<div class="flex items-center gap-3 mb-2">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">analytics</span>
+<span class="font-headline-md text-headline-md font-bold text-primary">Performance</span>
+</div>
+<p class="text-label-sm text-secondary px-1">Vendas &amp; Metas</p>
+</div>
+<nav class="flex flex-col gap-1 flex-1">
+<a class="flex items-center gap-4 text-secondary px-4 py-3 hover:bg-surface-container rounded-lg hover:translate-x-1 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-bold text-label-bold">Visão Geral</span>
+</a>
+<a class="flex items-center gap-4 bg-secondary-container text-primary rounded-lg px-4 py-3 hover:translate-x-1 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined">calculate</span>
+<span class="font-label-bold text-label-bold">Calculadora</span>
+</a>
+<a class="flex items-center gap-4 text-secondary px-4 py-3 hover:bg-surface-container rounded-lg hover:translate-x-1 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined">sell</span>
+<span class="font-label-bold text-label-bold">Marcas</span>
+</a>
+<a class="flex items-center gap-4 text-secondary px-4 py-3 hover:bg-surface-container rounded-lg hover:translate-x-1 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined">groups</span>
+<span class="font-label-bold text-label-bold">Equipe</span>
+</a>
+</nav>
+<div class="mt-auto border-t border-outline-variant pt-4 flex flex-col gap-1">
+<a class="flex items-center gap-4 text-secondary px-4 py-3 hover:bg-surface-container rounded-lg" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-bold text-label-bold">Configurações</span>
+</a>
+<a class="flex items-center gap-4 text-secondary px-4 py-3 hover:bg-surface-container rounded-lg" href="#">
+<span class="material-symbols-outlined">logout</span>
+<span class="font-label-bold text-label-bold">Sair</span>
+</a>
+</div>
+</aside>
+<main class="flex-1 p-margin-edge overflow-y-auto">
+<header class="mb-section-gap">
+<h1 class="font-headline-lg text-headline-lg text-primary mb-2">Calculadora de Metas</h1>
+<p class="text-body-lg text-secondary">Planejamento analítico para alta performance em vendas.</p>
+</header>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<div class="lg:col-span-7 space-y-stack-gap">
+<!-- Configuração Geral -->
+<section class="bg-surface-container-lowest p-8 border border-outline-variant rounded-lg">
+<div class="flex items-center gap-3 mb-6">
+<span class="material-symbols-outlined text-primary">settings_suggest</span>
+<h2 class="font-headline-md text-headline-md text-on-surface">Configuração Geral</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-stack-gap">
+<div class="flex flex-col gap-2">
+<label class="font-label-bold text-on-surface-variant">Meta Mensal Total (R$)</label>
+<input class="w-full bg-surface-container-lowest border border-outline p-3 rounded-lg focus:border-primary focus:ring-1 focus:ring-primary outline-none" id="input-meta-total" placeholder="Ex: 500000" type="number" value="500000"/>
+</div>
+<div class="flex flex-col gap-2">
+<label class="font-label-bold text-on-surface-variant">Dias Úteis Restantes / Total</label>
+<div class="flex gap-2">
+<input class="w-full bg-surface-container-lowest border border-outline p-3 rounded-lg focus:border-primary focus:ring-1 focus:ring-primary outline-none" id="input-dias-restantes" placeholder="Restantes" type="number" value="20"/>
+<span class="flex items-center text-secondary">/</span>
+<input class="w-full bg-surface-container-lowest border border-outline p-3 rounded-lg focus:border-primary focus:ring-1 focus:ring-primary outline-none" id="input-dias-totais" placeholder="Total" type="number" value="26"/>
+</div>
+</div>
+<div class="flex flex-col gap-2 md:col-span-2">
+<label class="font-label-bold text-on-surface-variant">Total Vendido até o Momento (R$)</label>
+<input class="w-full bg-surface-container-lowest border border-outline p-3 rounded-lg focus:border-primary focus:ring-1 focus:ring-primary outline-none" id="input-vendido" placeholder="Ex: 120000" type="number" value="120000"/>
+</div>
+</div>
+</section>
+<!-- Metas de Marcas -->
+<section class="bg-surface-container-lowest p-8 border border-outline-variant rounded-lg">
+<div class="flex justify-between items-center mb-6">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">sell</span>
+<h2 class="font-headline-md text-headline-md text-on-surface">Metas de Marcas</h2>
+</div>
+<button class="flex items-center gap-2 text-primary border border-primary px-4 py-2 rounded-lg font-label-bold hover:bg-primary-fixed transition-colors" id="btn-add-marca">
+<span class="material-symbols-outlined text-sm">add</span>
+                                Adicionar Marca
+                            </button>
+</div>
+<div class="space-y-6" id="marcas-container">
+<div class="marca-row bg-surface-container-low/30 p-4 border border-outline-variant rounded-lg space-y-4 animate-in fade-in slide-in-from-top-2 duration-300">
+<div class="flex flex-wrap items-end gap-4">
+<div class="flex-1 min-w-[200px] flex flex-col gap-2">
+<label class="font-label-bold text-on-surface-variant">Nome da Marca</label>
+<input class="marca-nome w-full bg-surface-container-lowest border border-outline p-3 rounded-lg focus:border-primary focus:ring-1 focus:ring-primary outline-none" placeholder="Ex: Nike" type="text" value="Nike"/>
+</div>
+<div class="flex flex-col gap-2">
+<label class="font-label-bold text-on-surface-variant">Tipo</label>
+<div class="flex bg-surface-container rounded-lg p-1">
+<button class="type-toggle px-4 py-2 text-label-sm font-bold rounded bg-primary text-on-primary transition-all" data-type="currency">R$</button>
+<button class="type-toggle px-4 py-2 text-label-sm font-bold rounded text-secondary hover:bg-surface-variant transition-all" data-type="units">Un</button>
+</div>
+</div>
+<button class="btn-remove-marca p-3 text-error hover:bg-error-container rounded-lg transition-colors ml-auto">
+<span class="material-symbols-outlined">delete</span>
+</button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div class="flex flex-col gap-2">
+<label class="font-label-bold text-on-surface-variant">Meta Mensal</label>
+<input class="marca-valor w-full bg-surface-container-lowest border border-outline p-3 rounded-lg focus:border-primary focus:ring-1 focus:ring-primary outline-none" placeholder="Meta" type="number" value="100000"/>
+</div>
+<div class="flex flex-col gap-2">
+<label class="font-label-bold text-on-surface-variant">Vendido Atual</label>
+<input class="marca-vendido w-full bg-surface-container-lowest border border-outline p-3 rounded-lg focus:border-primary focus:ring-1 focus:ring-primary outline-none" placeholder="Atual" type="number" value="24000"/>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Distribuição por Equipe -->
+<section class="bg-surface-container-lowest p-8 border border-outline-variant rounded-lg">
+<div class="flex items-center gap-3 mb-6">
+<span class="material-symbols-outlined text-primary">groups</span>
+<h2 class="font-headline-md text-headline-md text-on-surface">Distribuição por Equipe</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+<div class="flex flex-col gap-2">
+<label class="font-label-bold text-on-surface-variant">Balconistas (1.0)</label>
+<input class="w-full bg-surface-container-lowest border border-outline p-3 rounded-lg focus:border-primary focus:ring-1 focus:ring-primary outline-none" id="input-balconistas" placeholder="0" type="number" value="3"/>
+</div>
+<div class="flex flex-col gap-2">
+<label class="font-label-bold text-on-surface-variant">Farmacêuticos (0.7)</label>
+<input class="w-full bg-surface-container-lowest border border-outline p-3 rounded-lg focus:border-primary focus:ring-1 focus:ring-primary outline-none" id="input-farmaceuticos" placeholder="0" type="number" value="1"/>
+</div>
+<div class="flex flex-col gap-2">
+<label class="font-label-bold text-on-surface-variant">Ops. Financeiros (0.3)</label>
+<input class="w-full bg-surface-container-lowest border border-outline p-3 rounded-lg focus:border-primary focus:ring-1 focus:ring-primary outline-none" id="input-operadores" placeholder="0" type="number" value="1"/>
+</div>
+</div>
+</section>
+<button class="w-full bg-primary text-on-primary py-4 rounded-lg font-headline-md shadow-sm hover:translate-y-[-2px] hover:shadow-md transition-all active:scale-[0.98]" id="btn-calcular">
+                        Calcular Metas Diárias
+                    </button>
+</div>
+<!-- Results Sidebar -->
+<div class="lg:col-span-5 space-y-stack-gap">
+<div class="bg-surface-container-lowest border-t-4 border-primary border-x border-b border-outline-variant p-8 rounded-lg shadow-[0px_4px_12px_rgba(26,54,93,0.05)]">
+<span class="font-label-bold text-secondary uppercase tracking-widest mb-2 block text-xs">Resumo Consolidado</span>
+<div class="space-y-6">
+<div>
+<p class="text-body-md text-secondary">Meta Diária Sugerida (Loja)</p>
+<h3 class="font-headline-lg text-headline-lg text-primary-container" id="resumo-meta-dia">R$ 0,00</h3>
+<p class="text-label-sm text-secondary mt-1">(Saldo restante / dias úteis restantes)</p>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="p-4 bg-surface-container-low rounded-lg border border-outline-variant">
+<p class="text-[10px] font-label-bold text-secondary uppercase tracking-wider mb-1">Atingimento Geral</p>
+<h4 class="font-bold text-body-lg text-primary truncate" id="resumo-atingimento">0.0%</h4>
+</div>
+<div class="p-4 bg-surface-container-low rounded-lg border border-outline-variant">
+<p class="text-[10px] font-label-bold text-secondary uppercase tracking-wider mb-1">Saldo Total</p>
+<h4 class="font-bold text-body-lg text-primary truncate" id="resumo-saldo">R$ 0</h4>
+</div>
+</div>
+<div class="space-y-3 pt-2" id="resumo-metas-papeis">
+<div class="p-4 bg-primary-container text-on-primary rounded-lg shadow-sm border border-primary/20">
+<p class="text-xs opacity-90 uppercase font-bold tracking-wider mb-1">Meta: Balconista</p>
+<h4 class="font-headline-md text-headline-md" id="resumo-meta-balconista">R$ 0,00</h4>
+</div>
+<div class="p-4 bg-surface-container-high border border-outline-variant rounded-lg">
+<p class="text-xs text-secondary uppercase font-bold tracking-wider mb-1">Meta: Farmacêutico</p>
+<h4 class="font-headline-md text-headline-md text-primary" id="resumo-meta-farmaceutico">R$ 0,00</h4>
+</div>
+<div class="p-4 bg-surface-container-high border border-outline-variant rounded-lg">
+<p class="text-xs text-secondary uppercase font-bold tracking-wider mb-1">Meta: Op. Financeiro</p>
+<h4 class="font-headline-md text-headline-md text-primary" id="resumo-meta-operador">R$ 0,00</h4>
+</div>
+</div>
+</div>
+</div>
+<!-- Breakdown Table - Dynamic Results -->
+<div class="bg-surface-container-lowest border border-outline-variant p-8 rounded-lg shadow-sm">
+<div class="flex items-center gap-3 mb-6">
+<span class="material-symbols-outlined text-primary">analytics</span>
+<h2 class="font-headline-md text-headline-md text-on-surface">Detalhamento por Marca</h2>
+</div>
+<div class="space-y-6" id="breakdown-list">
+<!-- Populated by JS -->
+</div>
+</div>
+<div class="relative h-48 rounded-lg overflow-hidden group">
+<img alt="Análise Financeira Profissional" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCm_PfQLquTOL3KJsvVg6kTNv1cUgfMIxkJmsbhdHz48vvpGwgnVparFJ9LDQsrYyC7X0DfJ8UQ11ZqYjEuLCaWENt3HNYI-kvPuagsi4zg-mWrPXnrq2i5KWxUcfbXZ4xuGQgTm64Q0eORHUdxmEPeYjjZNsIGiBUktLnZXA1HDES8eUAVp_yDTBkcM6e8n2iCfcqFnQfiBWl6f018p5h9ppn1UFuahYSE-uxlrLbIKdrlH9qiPQDtHQjTFEwS7SHmzeBNc7F9Sxc"/>
+<div class="absolute inset-0 bg-primary-container/40 flex items-center justify-center p-6 text-center">
+<p class="text-on-primary font-label-bold text-label-bold">"Eficiência não é fazer mais, é planejar melhor."</p>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+<button class="fixed bottom-8 right-8 w-14 h-14 bg-primary text-on-primary rounded-full shadow-lg flex items-center justify-center hover:scale-105 active:scale-95 transition-all">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">calculate</span>
+</button>
+<script>
+    // LINHA 338 (Cole aqui)
+async function salvarNoBanco(dados) {
+    try {
+        const response = await fetch('http://localhost:3000/api/salvar-meta', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(dados)
+        });
+        const result = await response.json();
+        if (result.sucesso) {
+            console.log("✅ Dados salvos no SQL com ID:", result.id);
+            gerarRelatorio(); 
+        }
+    } catch (error) {
+        console.error("❌ Erro ao conectar com o servidor:", error);
+    }
+}
+
+async function gerarRelatorio() {
+    try {
+        const response = await fetch('http://localhost:3000/api/historico');
+        const historico = await response.json();
+        console.log("📊 RELATÓRIO DE SIMULAÇÕES:");
+        console.table(historico);
+    } catch (error) {
+        console.error("Erro ao buscar relatório:", error);
+    }
+}
+        const container = document.getElementById('marcas-container');
+        const btnAdd = document.getElementById('btn-add-marca');
+        const btnCalcular = document.getElementById('btn-calcular');
+        const breakdownList = document.getElementById('breakdown-list');
+
+        const currencyFormatter = new Intl.NumberFormat('pt-BR', {
+            style: 'currency',
+            currency: 'BRL',
+        });
+
+        const unitFormatter = new Intl.NumberFormat('pt-BR', {
+            style: 'decimal',
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 0
+        });
+
+        function formatValue(val, type) {
+            if (type === 'units') return unitFormatter.format(Math.round(val)) + ' un';
+            return currencyFormatter.format(val);
+        }
+      async function salvarNoBanco(dados) {
+            try {
+                const response = await fetch('http://localhost:3000/api/salvar-meta', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(dados)
+                });
+                const result = await response.json();
+                console.log('Salvo com sucesso:', result);
+            } catch (error) {
+                console.error('Erro ao salvar no banco:', error);
+            }
+        }
+        function setupMarcaRowListeners(row) {
+            const toggles = row.querySelectorAll('.type-toggle');
+            toggles.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    toggles.forEach(b => {
+                        b.classList.remove('bg-primary', 'text-on-primary');
+                        b.classList.add('text-secondary', 'hover:bg-surface-variant');
+                    });
+                    btn.classList.remove('text-secondary', 'hover:bg-surface-variant');
+                    btn.classList.add('bg-primary', 'text-on-primary');
+                    row.dataset.type = btn.dataset.type;
+                });
+            });
+
+            row.querySelector('.btn-remove-marca').addEventListener('click', () => {
+                row.remove();
+            });
+        }
+
+        function createMarcaRow() {
+            const div = document.createElement('div');
+            div.className = 'marca-row bg-surface-container-low/30 p-4 border border-outline-variant rounded-lg space-y-4 animate-in fade-in slide-in-from-top-2 duration-300';
+            div.dataset.type = 'currency';
+            div.innerHTML = `
+                <div class="flex flex-wrap items-end gap-4">
+                    <div class="flex-1 min-w-[200px] flex flex-col gap-2">
+                        <label class="font-label-bold text-on-surface-variant">Nome da Marca</label>
+                        <input class="marca-nome w-full bg-surface-container-lowest border border-outline p-3 rounded-lg focus:border-primary focus:ring-1 focus:ring-primary outline-none" placeholder="Ex: Puma" type="text"/>
+                    </div>
+                    <div class="flex flex-col gap-2">
+                        <label class="font-label-bold text-on-surface-variant">Tipo</label>
+                        <div class="flex bg-surface-container rounded-lg p-1">
+                            <button class="type-toggle px-4 py-2 text-label-sm font-bold rounded bg-primary text-on-primary transition-all" data-type="currency">R$</button>
+                            <button class="type-toggle px-4 py-2 text-label-sm font-bold rounded text-secondary hover:bg-surface-variant transition-all" data-type="units">Un</button>
+                        </div>
+                    </div>
+                    <button class="btn-remove-marca p-3 text-error hover:bg-error-container rounded-lg transition-colors ml-auto">
+                        <span class="material-symbols-outlined">delete</span>
+                    </button>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="flex flex-col gap-2">
+                        <label class="font-label-bold text-on-surface-variant">Meta Mensal</label>
+                        <input class="marca-valor w-full bg-surface-container-lowest border border-outline p-3 rounded-lg focus:border-primary focus:ring-1 focus:ring-primary outline-none" placeholder="Meta" type="number"/>
+                    </div>
+                    <div class="flex flex-col gap-2">
+                        <label class="font-label-bold text-on-surface-variant">Vendido Atual</label>
+                        <input class="marca-vendido w-full bg-surface-container-lowest border border-outline p-3 rounded-lg focus:border-primary focus:ring-1 focus:ring-primary outline-none" placeholder="Atual" type="number" value="0"/>
+                    </div>
+                </div>
+            `;
+            setupMarcaRowListeners(div);
+            return div;
+        }
+
+        btnAdd.addEventListener('click', () => {
+            container.appendChild(createMarcaRow());
+        });
+
+        document.querySelectorAll('.marca-row').forEach(row => {
+            row.dataset.type = 'currency';
+            setupMarcaRowListeners(row);
+        });
+function calcular() {
+            // 1. PRIMEIRO: Pega os valores dos inputs (Mova estas linhas para o topo da função)
+            const metaMensal = parseFloat(document.getElementById('input-meta-total').value) || 0;
+            const diasRestantes = parseInt(document.getElementById('input-dias-restantes').value) || 1;
+            const vendido = parseFloat(document.getElementById('input-vendido').value) || 0;
+
+            // ... (aqui fica o resto do seu código de cálculos e pesos que já existe) ...
+
+            // 2. DEPOIS: Faz toda a lógica de criar os cards na tela
+            marcaRows.forEach(row => {
+                // ... lógica das marcas ...
+                breakdownList.appendChild(resultCard);
+            }); // <-- Fim do loop das marcas
+
+            // 3. POR ÚLTIMO: Envia para o banco de dados (O trecho que você colou vai aqui)
+            const dadosParaSalvar = {
+                meta_total: metaMensal,
+                vendido: vendido,
+                meta_diaria: metaDiaTotal
+            };
+            salvarNoBanco(dadosParaSalvar);
+            
+        } // <-- Fecha a função calcular aqui
+
+            const metaMensal = parseFloat(document.getElementById('input-meta-total').value) || 0;
+            const diasRestantes = parseInt(document.getElementById('input-dias-restantes').value) || 1;
+            const vendido = parseFloat(document.getElementById('input-vendido').value) || 0;
+            
+            const nBalconistas = parseInt(document.getElementById('input-balconistas').value) || 0;
+            const nFarmaceuticos = parseInt(document.getElementById('input-farmaceuticos').value) || 0;
+            const nOperadores = parseInt(document.getElementById('input-operadores').value) || 0;
+
+            const wBalconista = 1.0;
+            const wFarmaceutico = 0.7;
+            const wOperador = 0.3;
+
+            const totalSomaPesos = (nBalconistas * wBalconista) + (nFarmaceuticos * wFarmaceutico) + (nOperadores * wOperador);
+
+            const saldoRestante = metaMensal - vendido;
+            const atingimento = metaMensal > 0 ? (vendido / metaMensal) * 100 : 0;
+            const metaDiaTotal = Math.max(0, saldoRestante / diasRestantes);
+
+            const baseGoal = totalSomaPesos > 0 ? (metaDiaTotal / totalSomaPesos) : 0;
+
+            const goalBalconista = baseGoal * wBalconista;
+            const goalFarmaceutico = baseGoal * wFarmaceutico;
+            const goalOperador = baseGoal * wOperador;
+
+            document.getElementById('resumo-meta-dia').textContent = currencyFormatter.format(metaDiaTotal);
+            document.getElementById('resumo-atingimento').textContent = atingimento.toFixed(1) + '%';
+            document.getElementById('resumo-saldo').textContent = currencyFormatter.format(saldoRestante);
+            // Comando para enviar ao Banco de Dados
+            const dadosParaSalvar = {
+                meta_total: metaMensal,
+                vendido: vendido,
+                meta_diaria: metaDiaTotal
+            };
+            salvarNoBanco(dadosParaSalvar);
+            document.getElementById('resumo-meta-balconista').textContent = currencyFormatter.format(goalBalconista);
+            document.getElementById('resumo-meta-farmaceutico').textContent = currencyFormatter.format(goalFarmaceutico);
+            document.getElementById('resumo-meta-operador').textContent = currencyFormatter.format(goalOperador);
+
+            const marcaRows = document.querySelectorAll('.marca-row');
+            breakdownList.innerHTML = '';
+
+            marcaRows.forEach(row => {
+                const nome = row.querySelector('.marca-nome').value || 'Marca s/ nome';
+                const metaMarcaMensal = parseFloat(row.querySelector('.marca-valor').value) || 0;
+                const vendidoMarca = parseFloat(row.querySelector('.marca-vendido').value) || 0;
+                const type = row.dataset.type;
+
+                const saldoMarca = Math.max(0, metaMarcaMensal - vendidoMarca);
+                const progMarca = metaMarcaMensal > 0 ? Math.min(100, (vendidoMarca / metaMarcaMensal) * 100) : 0;
+                const metaDiaMarca = saldoMarca / diasRestantes;
+                
+                const baseGoalMarca = totalSomaPesos > 0 ? (metaDiaMarca / totalSomaPesos) : 0;
+                const mb = baseGoalMarca * wBalconista;
+                const mf = baseGoalMarca * wFarmaceutico;
+                const mo = baseGoalMarca * wOperador;
+
+                const resultCard = document.createElement('div');
+                resultCard.className = 'p-5 border border-outline-variant rounded-lg bg-surface-container-low shadow-sm';
+                resultCard.innerHTML = `
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <h4 class="font-label-bold text-on-surface text-lg">${nome}</h4>
+                            <p class="text-label-sm text-secondary">Progresso: ${progMarca.toFixed(1)}%</p>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-[10px] font-label-bold text-secondary uppercase">Meta Loja (Dia)</span>
+                            <div class="text-xl font-bold text-primary">${formatValue(metaDiaMarca, type)}</div>
+                        </div>
+                    </div>
+                    
+                    <div class="w-full h-2 bg-surface-variant rounded-full overflow-hidden mb-4">
+                        <div class="h-full bg-primary transition-all duration-500" style="width: ${progMarca}%"></div>
+                    </div>
+
+                    <div class="grid grid-cols-3 gap-2 text-center mb-4">
+                        <div class="bg-surface-container p-2 rounded">
+                            <p class="text-[8px] font-bold text-secondary uppercase">Balc.</p>
+                            <p class="text-xs font-bold text-primary">${formatValue(mb, type)}</p>
+                        </div>
+                        <div class="bg-surface-container p-2 rounded">
+                            <p class="text-[8px] font-bold text-secondary uppercase">Farm.</p>
+                            <p class="text-xs font-bold text-primary">${formatValue(mf, type)}</p>
+                        </div>
+                        <div class="bg-surface-container p-2 rounded">
+                            <p class="text-[8px] font-bold text-secondary uppercase">Finan.</p>
+                            <p class="text-xs font-bold text-primary">${formatValue(mo, type)}</p>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4 text-sm border-t border-outline-variant pt-4">
+                        <div>
+                            <p class="text-secondary text-xs">Saldo Restante</p>
+                            <p class="font-semibold text-on-surface">${formatValue(saldoMarca, type)}</p>
+                        </div>
+                        <div class="text-right">
+                             <p class="text-secondary text-xs">Atingido</p>
+                             <p class="font-semibold text-on-surface">${formatValue(vendidoMarca, type)}</p>
+                        </div>
+                    </div>
+                `;
+                breakdownList.appendChild(resultCard);
+            });
+        }
+
+        btnCalcular.addEventListener('click', calcular);
+        window.addEventListener('DOMContentLoaded', calcular);
+    </script>
+</body></html>
