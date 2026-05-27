@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html class="light" lang="pt-BR">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>SalesTarget Pro - Calculadora de Metas</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    
+    <!-- Tailwind Config -->
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-surface": "#181c1e",
+                        "on-primary-container": "#86a0cd",
+                        "surface-variant": "#e0e3e5",
+                        "tertiary-fixed-dim": "#9fcaff",
+                        "outline-variant": "#c4c6cf",
+                        "secondary-fixed": "#d9e3f9",
+                        "on-primary-fixed": "#001b3c",
+                        "on-primary-fixed-variant": "#2d476f",
+                        "surface-container-low": "#f1f4f6",
+                        "primary-container": "#1a365d",
+                        "surface-container": "#ebeef0",
+                        "secondary-container": "#d6e0f6",
+                        "secondary": "#555f71",
+                        "on-primary": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "tertiary-fixed": "#d2e4ff",
+                        "on-error": "#ffffff",
+                        "tertiary-container": "#003762",
+                        "primary-fixed-dim": "#adc7f7",
+                        "primary": "#002045",
+                        "tertiary": "#00213e",
+                        "on-surface-variant": "#43474e",
+                        "surface-tint": "#455f88",
+                        "inverse-primary": "#adc7f7",
+                        "on-secondary-container": "#596376",
+                        "on-error-container": "#93000a",
+                        "on-secondary": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary-fixed-variant": "#3d4759",
+                        "surface": "#f7fafc",
+                        "background": "#f7fafc",
+                        "on-tertiary-fixed": "#001d37",
+                        "error": "#ba1a1a",
+                        "on-tertiary-container": "#58a2f0",
+                        "secondary-fixed-dim": "#bdc7dc",
+                        "surface-bright": "#f7fafc",
+                        "primary-fixed": "#d6e3ff",
+                        "on-tertiary-fixed-variant": "#00497e",
+                        "surface-dim": "#d7dadc",
+                        "surface-container-high": "#e5e9eb",
+                        "inverse-surface": "#2d3133",
+                        "on-secondary-fixed": "#121c2c",
+                        "on-background": "#181c1e",
+                        "surface-container-highest": "#e0e3e5",
+                        "inverse-on-surface": "#eef1f3",
+                        "error-container": "#ffdad6",
+                        "outline": "#74777f"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "container-max": "1200px",
+                        "margin-edge": "32px",
+                        "stack-gap": "16px",
+                        "gutter": "24px",
+                        "unit": "8px",
+                        "section-gap": "48px"
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="css/styles.css"/>
+</head>
+<body class="bg-background text-on-surface">
+    <!-- Header -->
+    <header class="bg-surface border-b border-outline-variant sticky top-0 z-50">
+        <div class="flex justify-between items-center w-full px-margin-edge py-4 max-w-container-max mx-auto">
+            <div class="flex items-center gap-8">
+                <span class="font-bold text-2xl text-primary">SalesTarget Pro</span>
+                <nav class="hidden md:flex gap-6">
+                    <a class="text-secondary hover:text-primary pb-2 transition-colors duration-200" href="#" id="nav-dashboard">Dashboard</a>
+                    <a class="text-secondary hover:text-primary pb-2 transition-colors duration-200" href="#" id="nav-simulador">Simulador</a>
+                    <a class="text-secondary hover:text-primary pb-2 transition-colors duration-200" href="#" id="nav-relatorios">Relatórios</a>
+                </nav>
+            </div>
+            <div class="flex items-center gap-4">
+                <button class="material-symbols-outlined text-secondary hover:text-primary transition-colors">notifications</button>
+                <button class="material-symbols-outlined text-secondary hover:text-primary transition-colors">settings</button>
+                <div class="w-8 h-8 rounded-full bg-outline-variant flex items-center justify-center overflow-hidden">
+                    <img alt="Avatar do Usuário" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCTUvrXFMbG9EytIRicbHNwuCRR5A6NCxwmC7a4mbGohlSEkMZQmv7ZW1Ywm7f73C0Z3zE__OwtM3DijQJOGKA2f_KMiQrsgsW8fjobp5yw2Iejp2Xi778n526z1PabZt4JBFnQ1AiIdSdhwBnHUlAAp1HUDU7HRwFMEuRG6INYXHHkZGY-dnjCxCFKdiTsFGUnlsANGPOEW7nPjAmxO516TIg3vCNZXPLQzMF8Ly4eCTekjR7NJIhDzeJCL_LceIo7A08ylU-SpzU"/>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Layout -->
+    <div class="flex max-w-container-max mx-auto">
+        <!-- Sidebar -->
+        <aside class="hidden lg:flex flex-col h-[calc(100vh-72px)] p-4 gap-4 bg-surface-container-lowest border-r border-outline-variant w-64">
+            <div class="py-4">
+                <div class="flex items-center gap-3 mb-2">
+                    <span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">analytics</span>
+                    <span class="font-bold text-lg text-primary">Performance</span>
+                </div>
+                <p class="text-xs text-secondary px-1">Vendas &amp; Metas</p>
+            </div>
+            <nav class="flex flex-col gap-1 flex-1">
+                <a id="side-overview" class="nav-link flex items-center gap-4 text-secondary px-4 py-3 hover:bg-surface-container rounded-lg hover:translate-x-1 transition-transform duration-200" href="#">
+                    <span class="material-symbols-outlined">dashboard</span>
+                    <span class="font-bold text-sm">Visão Geral</span>
+                </a>
+                <a id="side-calculadora" class="nav-link flex items-center gap-4 text-secondary px-4 py-3 hover:bg-surface-container rounded-lg hover:translate-x-1 transition-transform duration-200" href="#">
+                    <span class="material-symbols-outlined">calculate</span>
+                    <span class="font-bold text-sm">Calculadora</span>
+                </a>
+                <a id="side-marcas" class="nav-link flex items-center gap-4 text-secondary px-4 py-3 hover:bg-surface-container rounded-lg hover:translate-x-1 transition-transform duration-200" href="#">
+                    <span class="material-symbols-outlined">sell</span>
+                    <span class="font-bold text-sm">Marcas</span>
+                </a>
+                <a id="side-equipe" class="nav-link flex items-center gap-4 text-secondary px-4 py-3 hover:bg-surface-container rounded-lg hover:translate-x-1 transition-transform duration-200" href="#">
+                    <span class="material-symbols-outlined">groups</span>
+                    <span class="font-bold text-sm">Equipe</span>
+                </a>
+            </nav>
+            <div class="mt-auto border-t border-outline-variant pt-4 flex flex-col gap-1">
+                <a class="flex items-center gap-4 text-secondary px-4 py-3 hover:bg-surface-container rounded-lg" href="#">
+                    <span class="material-symbols-outlined">settings</span>
+                    <span class="font-bold text-sm">Configurações</span>
+                </a>
+                <a class="flex items-center gap-4 text-secondary px-4 py-3 hover:bg-surface-container rounded-lg" href="#">
+                    <span class="material-symbols-outlined">logout</span>
+                    <span class="font-bold text-sm">Sair</span>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 p-margin-edge overflow-y-auto">
+            <!-- SPA Sections -->
+            <section id="section-overview" style="display:none">
+                <header class="mb-12">
+                    <h1 class="text-4xl font-bold text-primary mb-2">Visão Geral</h1>
+                    <p class="text-lg text-secondary">Resumo geral de vendas, metas e desempenho.</p>
+                </header>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6" id="dashboard-indicadores"></div>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <article class="bg-surface-container-lowest border border-outline-variant p-8 rounded-lg shadow-sm">
+                        <h2 class="text-xl font-bold mb-2">Resumo diário</h2>
+                        <p class="text-secondary">Acompanhe o saldo restante, a meta diária e o percentual de atingimento da loja.</p>
+                    </article>
+                    <article class="bg-surface-container-lowest border border-outline-variant p-8 rounded-lg shadow-sm">
+                        <h2 class="text-xl font-bold mb-2">Performance por marca</h2>
+                        <p class="text-secondary">Use o bloco Marcas para ajustar cada linha e visualizar a contribuição de cada unidade.</p>
+                    </article>
+                </div>
+            </section>
+
+            <section id="section-calculadora">
+                <!-- ...toda a estrutura da calculadora e simulador (copiada do conteúdo original do main)... -->
+                <header class="mb-12">
+                    <h1 class="text-4xl font-bold text-primary mb-2">Calculadora de Metas</h1>
+                    <p class="text-lg text-secondary">Planejamento analítico para alta performance em vendas.</p>
+                </header>
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                    <!-- Left Column -->
+                    <div class="lg:col-span-7 space-y-4">
+                        <!-- Configuração Geral -->
+                        <section class="bg-surface-container-lowest p-8 border border-outline-variant rounded-lg">
+                            <div class="flex items-center gap-3 mb-6">
+                                <span class="material-symbols-outlined text-primary">settings_suggest</span>
+                                <h2 class="text-2xl font-bold text-on-surface">Configuração Geral</h2>
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div class="flex flex-col gap-2">
+                                    <label class="font-bold text-sm text-on-surface-variant">Meta Mensal Total (R$)</label>
+                                    <input class="w-full bg-surface-container-lowest border border-outline p-3 rounded-lg focus:border-primary focus:ring-1 focus:ring-primary outline-none" id="input-meta-total" placeholder="Ex: 500000" type="number" value="500000"/>
+                                </div>
+                                <div class="flex flex-col gap-2">
+                                    <label class="font-bold text-sm text-on-surface-variant">Dias Úteis Restantes / Total</label>
+                                    <div class="flex gap-2">
+                                        <input class="w-full bg-surface-container-lowest border border-outline p-3 rounded-lg focus:border-primary focus:ring-1 focus:ring-primary outline-none" id="input-dias-restantes" placeholder="Restantes" type="number" value="20"/>
+                                        <span class="flex items-center text-secondary">/</span>
+                                        <input class="w-full bg-surface-container-lowest border border-outline p-3 rounded-lg focus:border-primary focus:ring-1 focus:ring-primary outline-none" id="input-dias-totais" placeholder="Total" type="number" value="26"/>
+                                    </div>
+                                </div>
+                                <div class="flex flex-col gap-2 md:col-span-2">
+                                    <label class="font-bold text-sm text-on-surface-variant">Total Vendido até o Momento (R$)</label>
+                                    <input class="w-full bg-surface-container-lowest border border-outline p-3 rounded-lg focus:border-primary focus:ring-1 focus:ring-primary outline-none" id="input-vendido" placeholder="Ex: 120000" type="number" value="120000"/>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- Metas de Marcas -->
+                        <section class="bg-surface-container-lowest p-8 border border-outline-variant rounded-lg">
+                            <div class="flex justify-between items-center mb-6">
+                                <div class="flex items-center gap-3">
+                                    <span class="material-symbols-outlined text-primary">sell</span>
+                                    <h2 class="text-2xl font-bold text-on-surface">Metas de Marcas</h2>
+                                </div>
+                                <button class="flex items-center gap-2 text-primary border border-primary px-4 py-2 rounded-lg font-bold hover:bg-primary-fixed transition-colors" id="btn-add-marca">
+                                    <span class="material-symbols-outlined text-sm">add</span>
+                                    Adicionar Marca
+                                </button>
+                            </div>
+                            <div class="space-y-6" id="marcas-container">
+                                <!-- Dynamically populated -->
+                            </div>
+                        </section>
+
+                        <!-- Distribuição por Equipe -->
+                        <section class="bg-surface-container-lowest p-8 border border-outline-variant rounded-lg">
+                            <div class="flex items-center gap-3 mb-6">
+                                <span class="material-symbols-outlined text-primary">groups</span>
+                                <h2 class="text-2xl font-bold text-on-surface">Distribuição por Equipe</h2>
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                <div class="flex flex-col gap-2">
+                                    <label class="font-bold text-sm text-on-surface-variant">Balconistas (1.0)</label>
+                                    <input class="w-full bg-surface-container-lowest border border-outline p-3 rounded-lg focus:border-primary focus:ring-1 focus:ring-primary outline-none" id="input-balconistas" placeholder="0" type="number" value="3"/>
+                                </div>
+                                <div class="flex flex-col gap-2">
+                                    <label class="font-bold text-sm text-on-surface-variant">Farmacêuticos (0.7)</label>
+                                    <input class="w-full bg-surface-container-lowest border border-outline p-3 rounded-lg focus:border-primary focus:ring-1 focus:ring-primary outline-none" id="input-farmaceuticos" placeholder="0" type="number" value="1"/>
+                                </div>
+                                <div class="flex flex-col gap-2">
+                                    <label class="font-bold text-sm text-on-surface-variant">Ops. Financeiros (0.3)</label>
+                                    <input class="w-full bg-surface-container-lowest border border-outline p-3 rounded-lg focus:border-primary focus:ring-1 focus:ring-primary outline-none" id="input-operadores" placeholder="0" type="number" value="1"/>
+                                </div>
+                            </div>
+                        </section>
+
+                        <button class="w-full bg-primary text-on-primary py-4 rounded-lg font-bold shadow-sm hover:translate-y-[-2px] hover:shadow-md transition-all active:scale-[0.98]" id="btn-calcular">
+                            Calcular Metas Diárias
+                        </button>
+                    </div>
+
+                    <!-- Right Column - Results -->
+                    <div class="lg:col-span-5 space-y-4">
+                        <div class="bg-surface-container-lowest border-t-4 border-primary border-x border-b border-outline-variant p-8 rounded-lg shadow-[0px_4px_12px_rgba(26,54,93,0.05)]">
+                            <span class="font-bold text-xs text-secondary uppercase tracking-widest mb-2 block">Resumo Consolidado</span>
+                            <div class="space-y-6">
+                                <div>
+                                    <p class="text-base text-secondary">Meta Diária Sugerida (Loja)</p>
+                                    <h3 class="text-3xl font-bold text-primary-container" id="resumo-meta-dia">R$ 0,00</h3>
+                                    <p class="text-xs text-secondary mt-1">(Saldo restante / dias úteis restantes)</p>
+                                </div>
+                                <div class="grid grid-cols-2 gap-4">
+                                    <div class="p-4 bg-surface-container-low rounded-lg border border-outline-variant">
+                                        <p class="text-xs font-bold text-secondary uppercase tracking-wider mb-1">Atingimento Geral</p>
+                                        <h4 class="font-bold text-lg text-primary truncate" id="resumo-atingimento">0.0%</h4>
+                                    </div>
+                                    <div class="p-4 bg-surface-container-low rounded-lg border border-outline-variant">
+                                        <p class="text-xs font-bold text-secondary uppercase tracking-wider mb-1">Saldo Total</p>
+                                        <h4 class="font-bold text-lg text-primary truncate" id="resumo-saldo">R$ 0</h4>
+                                    </div>
+                                </div>
+                                <div class="space-y-3 pt-2" id="resumo-metas-papeis">
+                                    <div class="p-4 bg-primary-container text-on-primary rounded-lg shadow-sm border border-primary/20">
+                                        <p class="text-xs opacity-90 uppercase font-bold tracking-wider mb-1">Meta: Balconista</p>
+                                        <h4 class="text-2xl font-bold" id="resumo-meta-balconista">R$ 0,00</h4>
+                                        <p class="text-xs opacity-90 mt-1" id="resumo-meta-balconista-mensal">Meta mensal por pessoa: R$ 0,00</p>
+                                    </div>
+                                    <div class="p-4 bg-surface-container-high border border-outline-variant rounded-lg">
+                                        <p class="text-xs text-secondary uppercase font-bold tracking-wider mb-1">Meta: Farmacêutico</p>
+                                        <h4 class="text-2xl font-bold text-primary" id="resumo-meta-farmaceutico">R$ 0,00</h4>
+                                        <p class="text-xs text-secondary mt-1" id="resumo-meta-farmaceutico-mensal">Meta mensal por pessoa: R$ 0,00</p>
+                                    </div>
+                                    <div class="p-4 bg-surface-container-high border border-outline-variant rounded-lg">
+                                        <p class="text-xs text-secondary uppercase font-bold tracking-wider mb-1">Meta: Op. Financeiro</p>
+                                        <h4 class="text-2xl font-bold text-primary" id="resumo-meta-operador">R$ 0,00</h4>
+                                        <p class="text-xs text-secondary mt-1" id="resumo-meta-operador-mensal">Meta mensal por pessoa: R$ 0,00</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Breakdown Table -->
+                        <div class="bg-surface-container-lowest border border-outline-variant p-8 rounded-lg shadow-sm">
+                            <div class="flex items-center gap-3 mb-6">
+                                <span class="material-symbols-outlined text-primary">analytics</span>
+                                <h2 class="text-2xl font-bold text-on-surface">Detalhamento por Marca</h2>
+                            </div>
+                            <div class="space-y-6" id="breakdown-list">
+                                <!-- Populated by JS -->
+                            </div>
+                        </div>
+
+                        <!-- Image Banner -->
+                        <div class="relative h-48 rounded-lg overflow-hidden group">
+                            <img alt="Análise Financeira Profissional" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCm_PfQLquTOL3KJsvVg6kTNv1cUgfMIxkJmsbhdHz48vvpGwgnVparFJ9LDQsrYyC7X0DfJ8UQ11ZqYjEuLCaWENt3HNYI-kvPuagsi4zg-mWrPXnrq2i5KWxUcfbXZ4xuGQgTm64Q0eORHUdxmEPeYjjZNsIGiBUktLnZXA1HDES8eUAVp_yDTBkcM6e8n2iCfcqFnQfiBWl6f018p5h9ppn1UFuahYSE-uxlrLbIKdrlH9qiPQDtHQjTFEwS7SHmzeBNc7F9Sxc"/>
+                            <div class="absolute inset-0 bg-primary-container/40 flex items-center justify-center p-6 text-center">
+                                <p class="text-on-primary font-bold text-sm">"Eficiência não é fazer mais, é planejar melhor."</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="section-marcas" style="display:none">
+                <header class="mb-12">
+                    <h1 class="text-4xl font-bold text-primary mb-2">Marcas</h1>
+                    <p class="text-lg text-secondary">Gerencie as metas por marca e veja rapidamente o comportamento de cada linha.</p>
+                </header>
+                <div class="bg-surface-container-lowest border border-outline-variant p-8 rounded-lg shadow-sm">
+                    <h2 class="text-xl font-bold mb-4">Detalhamento das marcas</h2>
+                    <p class="text-secondary mb-4">Use o botão “Adicionar Marca” dentro da calculadora para incluir novas linhas e acompanhar o resultado por categoria.</p>
+                    <div id="marcas-resumo" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
+                </div>
+            </section>
+
+            <section id="section-equipe" style="display:none">
+                <header class="mb-12">
+                    <h1 class="text-4xl font-bold text-primary mb-2">Equipe</h1>
+                    <p class="text-lg text-secondary">Distribuição e metas por perfil da equipe.</p>
+                </header>
+                <div class="bg-surface-container-lowest border border-outline-variant p-8 rounded-lg shadow-sm">
+                    <h2 class="text-xl font-bold mb-4">Distribuição por perfil</h2>
+                    <div id="equipe-resumo" class="grid grid-cols-1 md:grid-cols-3 gap-6"></div>
+                </div>
+            </section>
+
+            <section id="section-relatorios" style="display:none">
+                <header class="mb-12">
+                    <h1 class="text-4xl font-bold text-primary mb-2">Relatórios</h1>
+                    <p class="text-lg text-secondary">Histórico de simulações e metas salvas.</p>
+                </header>
+                <div class="bg-surface-container-lowest border border-outline-variant p-8 rounded-lg shadow-sm">
+                    <h2 class="text-xl font-bold mb-4">Histórico de Simulações</h2>
+                    <div id="relatorios-tabela" class="overflow-x-auto"></div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Floating Button -->
+    <button class="fixed bottom-8 right-8 w-14 h-14 bg-primary text-on-primary rounded-full shadow-lg flex items-center justify-center hover:scale-105 active:scale-95 transition-all">
+        <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">calculate</span>
+    </button>
+
+    <!-- Scripts -->
+    <script src="js/main.js"></script>
+</body>
+</html>

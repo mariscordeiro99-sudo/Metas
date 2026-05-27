@@ -1,0 +1,11 @@
+{
+  "name": "metas-frontend",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "live-server public --port=8000 --host=127.0.0.1 --no-browser"
+  },
+  "devDependencies": {
+    "live-server": "^1.2.2"
+  }
+}
